@@ -1,7 +1,14 @@
 namespace Business;
 
-public class IndividualPayer:Payer
+public class IndividualPayer : Payer
 {
+    /// <summary>
+    /// ФИО физического лица.
+    /// </summary>
     public string name { get; init; }
-    public PayerType type { get; init; }
+
+    /// <summary>
+    /// Тип плательщика (всегда <see cref="PayerType.INDIVIDUAL"/>).
+    /// </summary>
+    public PayerType type { get; } = PayerType.INDIVIDUAL;
 }
