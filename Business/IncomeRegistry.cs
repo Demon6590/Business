@@ -8,14 +8,14 @@ public class IncomeRegistry
     /// <summary>
     /// Список всех записей о доходах.
     /// </summary>
-    public List<Income> Incomes { get; }=new List<Income>();
-    
+    public List<Income> Incomes { get; } = new List<Income>();
+
     /// <summary>
     /// Добавляет новую запись о доходе в реестр.
     /// </summary>
     /// <param name="income">Запись о доходе для добавления.</param>
-    public void AddIncome(Income income)=> Incomes.Add(income);
-    
+    public void AddIncome(Income income) => Incomes.Add(income);
+
     /// <summary>
     /// Возвращает список доходов за указанный месяц и год.
     /// </summary>
@@ -25,7 +25,7 @@ public class IncomeRegistry
     public List<Income> getIncomesByMonth(int year, int month)
     {
         List<Income> monthlyIncomes = new List<Income>();
-    
+
         foreach (Income income in Incomes)
         {
             if (income.date.Year == year && income.date.Month == month)
@@ -33,9 +33,10 @@ public class IncomeRegistry
                 monthlyIncomes.Add(income);
             }
         }
-    
+
         return monthlyIncomes;
     }
+
     /// <summary>
     /// Возвращает общую сумму доходов за указанный месяц и год.
     /// </summary>
@@ -44,36 +45,36 @@ public class IncomeRegistry
     /// <returns>Общая сумма доходов за период.</returns>
     public double getTotalIncomeByMonth(int year, int month)
     {
-        double totalIncome = 0.0;
-    
-        foreach (Income income in Incomes)
+        var totalIncome = 0.0;
+        var monthlyIncomes = getIncomesByMonth(year, month);
+
+        foreach (Income income in monthlyIncomes)
         {
-            if (income.date.Year == year && income.date.Month == month)
-            {
-                totalIncome += income.amount;
-            }
+            totalIncome += income.amount;
         }
+
         return totalIncome;
     }
+
     /// <summary>
     /// Рассчитывает общую сумму налога за указанный месяц и год.
     /// </summary>
     /// <param name="year">Год.</param>
     /// <param name="month">Месяц (1-12).</param>
     /// <returns>Общая сумма налога за период.</returns>
-
     public double getTaxByMonth(int year, int month)
     {
-        double tax = 0.0;
-        foreach (Income income in Incomes)
+        var tax = 0.0;
+        var monthlyIncomes = getIncomesByMonth(year, month);
+
+        foreach (Income income in monthlyIncomes)
         {
-            if(income.date.Year == year && income.date.Month == month)
-            {
-                tax += income.calculateTax();
-            }
+            tax += income.calculateTax();
         }
+
         return tax;
     }
+
     /// <summary>
     /// Рассчитывает чистую прибыль за указанный месяц и год (доход минус налог).
     /// </summary>
@@ -84,9 +85,8 @@ public class IncomeRegistry
     {
         double totalIncome = getTotalIncomeByMonth(year, month);
         double totalTax = getTaxByMonth(year, month);
-    
+
         double profit = totalIncome - totalTax;
         return profit;
     }
-
 }

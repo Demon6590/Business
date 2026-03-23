@@ -10,7 +10,6 @@ public class Income
     /// </summary>
     public DateTime date { get; init; }
 
-    private double field;
 
     /// <summary>
     /// Сумма дохода (должна быть больше нуля).
@@ -18,7 +17,7 @@ public class Income
     /// <exception cref="ArgumentException">Бросается при значении 0.</exception>
     public double amount
     {
-        get { return field; }
+        get;
         init
         {
             if (value <= 0)
@@ -27,7 +26,7 @@ public class Income
         }
     }
 
-/// <summary>
+    /// <summary>
     /// Плательщик, от которого получен доход.
     /// </summary>
     public Payer payer { get; init; }
@@ -39,13 +38,13 @@ public class Income
     public double getTaxRate()
     {
         double taxRate = 1.0;
-    
+
         if (payer.Type == PayerType.INDIVIDUAL)
             taxRate = 0.04;
 
         if (payer.Type == PayerType.LEGAL_ENTITY)
             taxRate = 0.06;
-        
+
         return taxRate;
     }
 
@@ -56,15 +55,13 @@ public class Income
     public double calculateTax()
     {
         double tax = amount;
-        
+
         if (payer.Type == PayerType.INDIVIDUAL)
-        {
             tax = tax * 0.04;
-        }
+
         if (payer.Type == PayerType.LEGAL_ENTITY)
-        {
             tax = tax * 0.06;
-        }
+
         return tax;
     }
 }
