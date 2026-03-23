@@ -8,4 +8,5 @@
     <File Path="README" />
   </Folder>
   <Project Path="Business\Business.csproj" Type="Classic C#" />
+  <Project Path="TestProject1\TestProject1.csproj" Type="Classic C#" />
 </Solution>
